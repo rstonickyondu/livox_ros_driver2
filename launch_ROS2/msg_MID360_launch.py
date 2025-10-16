@@ -41,45 +41,6 @@ def generate_launch_description():
         parameters=livox_ros2_params
         )
 
-
     return LaunchDescription([
         livox_driver,
-        # launch.actions.RegisterEventHandler(
-        #     event_handler=launch.event_handlers.OnProcessExit(
-        #         target_action=livox_rviz,
-        #         on_exit=[
-        #             launch.actions.EmitEvent(event=launch.events.Shutdown()),
-        #         ]
-        #     )
-        # )
-    ])
-
-
-def generate_launch_description():
-    livox_driver = Node(
-        package='livox_ros_driver2',
-        executable='livox_ros_driver2_node',
-        name='livox_lidar_publisher',
-        output='screen',
-        parameters=livox_ros2_params
-        )
-
-    custom_to_pc2_converter = Node(
-        package='livox_custom_to_pointcloud2',
-        executable='custom_to_pc2_node',
-        name='custom_to_pointcloud2_converter',
-        output='screen'
-    )
-
-    return LaunchDescription([
-        livox_driver,
-        custom_to_pc2_converter,
-        # launch.actions.RegisterEventHandler(
-        #     event_handler=launch.event_handlers.OnProcessExit(
-        #         target_action=livox_rviz,
-        #         on_exit=[
-        #             launch.actions.EmitEvent(event=launch.events.Shutdown()),
-        #         ]
-        #     )
-        # )
     ])
