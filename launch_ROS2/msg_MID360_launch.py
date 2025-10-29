@@ -28,7 +28,14 @@ livox_ros2_params = [
     {"frame_id": frame_id},
     {"lvx_file_path": lvx_file_path},
     {"user_config_path": user_config_path},
-    {"cmdline_input_bd_code": cmdline_bd_code}
+    {"cmdline_input_bd_code": cmdline_bd_code},
+    {"enable_lidar_bag": False},
+    {"enable_imu_bag": False},
+    {"imu_rate": 200},
+    {"extrinsic_parameter_source": 0},
+    {"enable_fast_poll_mode": True},
+    {"enable_lidar_pole_filter": False},
+    {"enable_sync_publish": True}
 ]
 
 
