@@ -35,12 +35,8 @@
         "x": 0,
         "y": 0,
         "z": 0
-      },
-      "blind_spot_set": 50
+      }
     }
-  ],
-  "lidar_net_info": {
-    "max_cache_count": 50
-  }
+  ]
 }
 
