@@ -40,7 +40,7 @@
     }
   ],
   "lidar_net_info": {
-    "max_cache_count": 50
+    "max_cache_count": 100
   }
 }
 
