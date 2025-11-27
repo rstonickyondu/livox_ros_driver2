@@ -263,15 +263,33 @@ bool PubHandler::GetLidarId(LidarProtoType lidar_type, uint32_t handle, uint32_t
 }
 
 uint64_t PubHandler::GetEthPacketTimestamp(uint8_t timestamp_type, uint8_t* time_stamp, uint8_t size) {
-  LdsStamp time;
-  memcpy(time.stamp_bytes, time_stamp, size);
-
-  if (timestamp_type == kTimestampTypeGptpOrPtp ||
-      timestamp_type == kTimestampTypeGps) {
-    return time.stamp;
-  }
-
-  return std::chrono::high_resolution_clock::now().time_since_epoch().count();
+  // CUSTOM MODIFICATION: Always use system clock in nanoseconds for ROS 2 compatibility
+  // 
+  // Original code would use sensor timestamps when synced via GPS/PTP, which causes:
+  // 1. Timestamps in the future (GPS time != system time)
+  // 2. Accumulated drift during robot rotation
+  // 3. TF lookup failures and scan/odom desync
+  //
+  // Using system_clock ensures:
+  // - Timestamps match ROS 2's clock domain (nanoseconds since epoch)
+  // - Consistent timing across all messages
+  // - Proper TF synchronization during motion
+  //
+  // NOTE: If you need GPS-synced timestamps for multi-robot systems,
+  // you must configure system time to sync with GPS via chrony/gpsd
+  
+  return std::chrono::duration_cast<std::chrono::nanoseconds>(
+      std::chrono::system_clock::now().time_since_epoch()
+  ).count();
+  
+  // Original implementation (disabled):
+  // LdsStamp time;
+  // memcpy(time.stamp_bytes, time_stamp, size);
+  // if (timestamp_type == kTimestampTypeGptpOrPtp ||
+  //     timestamp_type == kTimestampTypeGps) {
+  //   return time.stamp;
+  // }
+  // return std::chrono::high_resolution_clock::now().time_since_epoch().count();
 }
 
 /*******************************/

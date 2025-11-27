@@ -29,6 +29,7 @@ livox_ros2_params = [
     {"lvx_file_path": lvx_file_path},
     {"user_config_path": user_config_path},
     {"cmdline_input_bd_code": cmdline_bd_code},
+    # NOTE: Timestamps fixed in pub_handler.cpp to always use system time
     # {"enable_lidar_bag": False},
     # {"enable_imu_bag": False},
     # {"imu_rate": 0},
